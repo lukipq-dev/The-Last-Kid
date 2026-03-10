@@ -5,7 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Last Kid</title>
 
+<link rel="icon" type="image/png" href="favicon.png">
+
 <style>
+
+.game-icon{
+width:220px;
+margin:30px 0;
+border-radius:25px;
+box-shadow:0 10px 40px rgba(0,0,0,0.6);
+}
 
 *{
 margin:0;
@@ -155,10 +164,53 @@ left:0;
 z-index:-1;
 }
 
+/* CHANGELOG */
+
+.changelog-btn{
+position:fixed;
+top:20px;
+left:20px;
+padding:10px 18px;
+border:none;
+border-radius:12px;
+background:#7c5cff;
+color:white;
+font-weight:bold;
+cursor:pointer;
+z-index:1000;
+}
+
+.changelog-panel{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.85);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:999;
+}
+
+.changelog-box{
+background:#0f1430;
+padding:40px;
+border-radius:20px;
+max-width:500px;
+}
+
+.changelog-box ul{
+margin-top:20px;
+line-height:1.8;
+}
+
 </style>
 </head>
 
 <body>
+
+<button class="changelog-btn" onclick="openChangelog()">Changelog</button>
 
 <canvas id="particles"></canvas>
 
@@ -167,12 +219,15 @@ z-index:-1;
 
 <h1>The Last Kid</h1>
 
-<p>
-You wake up in a house that isn't yours.
-The doors are locked. The lights barely work.
-And somewhere in the darkness, someone is watching.
+<img src="Icon.png" class="game-icon">
 
-Explore the house, find keys, unlock rooms, and uncover the truth behind the disappearances.
+<p>
+<p>
+After a sudden abduction, you wake up inside a mysterious house.  
+Every door is locked. Every room hides a clue.
+
+Explore the house, search for keys, and slowly uncover the truth behind the person who brought you here.
+</p>
 </p>
 
 <div class="buttons">
@@ -238,26 +293,34 @@ As you explore deeper, the house begins to tell its story.
 
 <div class="video">
 
-<!--
-TO ADD YOUR TRAILER:
-
-OPTION 1 (YouTube):
-Replace VIDEO_ID below
-
-<iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
-
-OPTION 2 (MP4 file):
-
 <video controls>
 <source src="trailer.mp4" type="video/mp4">
 </video>
--->
-
-<iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
 
 </div>
 
 </section>
+
+<div id="changelog" class="changelog-panel">
+
+<div class="changelog-box">
+
+<h2>Changelog</h2>
+
+<ul>
+<li><b>v0.1</b> – Website created</li>
+<li><b>v0.2</b> – Trailer added</li>
+<li><b>v0.3</b> – Game icon added</li>
+<li><b>v0.4</b> – UI improvements</li>
+</ul>
+
+<br>
+
+<button class="btn play" onclick="closeChangelog()">Close</button>
+
+</div>
+
+</div>
 
 <footer>
 The Last Kid • Roblox Horror Experience
@@ -266,15 +329,21 @@ The Last Kid • Roblox Horror Experience
 <script>
 
 function playGame(){
-
-window.open("https://www.roblox.com/games/YOUR_GAME_ID","_blank")
-
+window.open("https://www.roblox.com/games/100805072034778/The-Last-Kid","_blank")
 }
 
 function scrollTrailer(){
-
 document.getElementById("trailer").scrollIntoView({behavior:"smooth"})
+}
 
+/* CHANGELOG */
+
+function openChangelog(){
+document.getElementById("changelog").style.display="flex"
+}
+
+function closeChangelog(){
+document.getElementById("changelog").style.display="none"
 }
 
 /* PARTICLES BACKGROUND */
@@ -321,95 +390,6 @@ requestAnimationFrame(animate)
 }
 
 animate()
-
-</script>
-
-
-
-<!-- CHANGELOG BUTTON -->
-<button id="changelogBtn" class="changelog-btn">Changelog</button>
-
-<!-- CHANGELOG PANEL -->
-<div id="changelogPanel" class="changelog-panel">
-
-<div class="changelog-content">
-
-<h2>Changelog</h2>
-
-<ul>
-<li><b>v0.1</b> – Website created</li>
-<li><b>v0.2</b> – Added trailer section</li>
-<li><b>v0.3</b> – Added game icon</li>
-<li><b>v0.4</b> – Improved UI and animations</li>
-</ul>
-
-<button onclick="closeChangelog()" class="btn play">Close</button>
-
-</div>
-
-</div>
-
-<style>
-
-.changelog-btn{
-position:fixed;
-top:20px;
-left:20px;
-z-index:1000;
-padding:10px 18px;
-border:none;
-border-radius:12px;
-font-weight:bold;
-cursor:pointer;
-background:#7c5cff;
-color:white;
-transition:0.2s;
-}
-
-.changelog-btn:hover{
-transform:scale(1.05);
-}
-
-.changelog-panel{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.8);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:999;
-}
-
-.changelog-content{
-background:#0f1430;
-padding:40px;
-border-radius:20px;
-max-width:500px;
-text-align:left;
-}
-
-.changelog-content ul{
-margin-top:20px;
-line-height:1.8;
-}
-
-</style>
-
-<script>
-
-const changelogBtn=document.getElementById("changelogBtn")
-const changelogPanel=document.getElementById("changelogPanel")
-
-changelogBtn.onclick=function(){
-changelogPanel.style.display="flex"
-}
-
-function closeChangelog(){
-changelogPanel.style.display="none"
-}
 
 </script>
 
