@@ -1,65 +1,130 @@
-<!DOCTYPE html>
+
+
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Last Kid</title>
-
-<link rel="icon" type="image/png" href="favicon.png">
-
+<title>LKX Studio</title>
 <style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
+body{background:#090611;color:white;overflow-x:hidden}
+canvas{position:fixed;inset:0;z-index:-1}
+
+header{
+position:fixed;top:0;left:0;width:100%;
+display:flex;align-items:center;gap:15px;
+padding:15px 30px;
+background:rgba(0,0,0,.35);
+backdrop-filter:blur(10px);
+z-index:1000;
+}
+.logo{
+width:55px;height:55px;border-radius:50%;
+background:#222;display:flex;align-items:center;justify-content:center;
+border:2px dashed #ec4899;
+}
+.hero{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:flex-start;
+align-items:center;
+padding:80px 20px 20px 20px;
+text-align:center;
+}
+.hero h1{
+font-size:70px;
+background:linear-gradient(90deg,#8b5cf6,#ec4899);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+.hero p{max-width:700px;opacity:.85;margin-top:15px}
+
+.games{
+display:flex;
+justify-content:center;
+gap:40px;
+flex-wrap:wrap;
+margin-top:60px;
+}
+
+.card{
+width:420px;
+height:260px;
+border-radius:25px;
+overflow:hidden;
+position:relative;
+cursor:pointer;
+transform-style:preserve-3d;
+transition:.15s;
+border:1px solid rgba(255,255,255,.15);
+background:#141020;
+}
+
+.card img{
+width:100%;height:100%;object-fit:cover;
+}
+
+.placeholder{
+width:100%;height:100%;
+display:flex;align-items:center;justify-content:center;
+font-size:26px;font-weight:bold;
+background:linear-gradient(135deg,#8b5cf6,#ec4899);
+}
+
+.overlay{
+position:absolute;
+inset:0;
+background:linear-gradient(to top,rgba(0,0,0,.9),transparent);
+display:flex;
+align-items:end;
+padding:20px;
+font-size:28px;
+font-weight:bold;
+}
+
+.hidden{display:none}
+
+.back{
+position:fixed;
+top:30px;
+left:20px;
+padding:12px 18px;
+border:none;
+border-radius:12px;
+background:#8b5cf6;
+color:white;
+cursor:pointer;
+z-index:1000;
+}
+
+.gamePage{
+padding-top:100px;
+}
+
+.note{
+padding:20px;
+background:#151028;
+border-radius:15px;
+margin:20px auto;
+max-width:900px;
+border:1px dashed #ec4899;
+}
 
 .game-icon{
 width:220px;
 margin:30px 0;
 border-radius:25px;
-box-shadow:0 10px 40px rgba(0,0,0,0.6);
+box-shadow:0 10px 40px rgba(0,0,0,.6);
 }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Segoe UI, Arial, sans-serif;
-}
-
-body{
-background:#060812;
-color:white;
-overflow-x:hidden;
-}
-
-/* HERO SECTION */
-.hero{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:40px;
-background:radial-gradient(circle at center,#1b2040,#05070f);
-}
-
-.hero h1{
-font-size:70px;
-letter-spacing:2px;
-margin-bottom:10px;
-}
-
-.hero p{
-max-width:700px;
-opacity:.8;
-font-size:18px;
-margin-bottom:40px;
-}
-
-/* BUTTONS */
 .buttons{
 display:flex;
 gap:15px;
-flex-wrap:wrap;
 justify-content:center;
+flex-wrap:wrap;
+margin-top:25px;
 }
 
 .btn{
@@ -69,68 +134,51 @@ border-radius:16px;
 font-size:16px;
 font-weight:bold;
 cursor:pointer;
-transition:0.2s;
-}
-
-.play{
-background:linear-gradient(90deg,#7c5cff,#00d4ff);
-color:black;
-}
-
-.trailer{
-background:transparent;
-border:2px solid #7c5cff;
-color:#7c5cff;
+transition:.2s;
 }
 
 .btn:hover{
 transform:scale(1.08);
 }
 
-/* SECTIONS */
-section{
-padding:100px 25px;
-max-width:1100px;
-margin:auto;
-text-align:center;
+.play{
+background:linear-gradient(90deg,#8b5cf6,#ec4899);
+color:white;
 }
 
-section h2{
-font-size:40px;
-margin-bottom:20px;
+.trailer{
+background:transparent;
+border:2px solid #ec4899;
+color:#ec4899;
 }
 
-section p{
-max-width:750px;
-margin:auto;
-line-height:1.7;
-opacity:.85;
-}
-
-/* FEATURES */
 .features{
 margin-top:50px;
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:25px;
+grid-template-columns:repeat(2,1fr);
+gap:20px;
+max-width:900px;
+margin-left:auto;
+margin-right:auto;
 }
 
-.card{
-background:#0f1430;
+.features .card{
+background:#151028;
 padding:30px;
 border-radius:20px;
-transition:0.2s;
+height:auto;
+width:auto;
+cursor:pointer;
+transition:.25s;
 }
 
-.card:hover{
-transform:translateY(-6px);
+.features .card:hover{
+transform:translateY(-10px) scale(1.03);
+box-shadow:0 0 30px rgba(236,72,153,.35);
+border:1px solid #ec4899;
+background:#1b1430;
 }
 
-.card h3{
-margin-bottom:10px;
-}
-
-/* TRAILER VIDEO */
 .video{
 margin-top:40px;
 border-radius:20px;
@@ -138,83 +186,96 @@ overflow:hidden;
 box-shadow:0 25px 70px rgba(0,0,0,.7);
 }
 
-.video iframe{
-width:100%;
-height:520px;
-border:none;
+.video{
+max-width:900px;
+margin:40px auto;
 }
 
 .video video{
 width:100%;
-}
-
-/* FOOTER */
-footer{
-padding:50px;
-text-align:center;
-opacity:.6;
-font-size:14px;
-}
-
-/* PARTICLES */
-canvas{
-position:fixed;
-top:0;
-left:0;
-z-index:-1;
-}
-
-/* CHANGELOG */
-
-.changelog-btn{
-position:fixed;
-top:20px;
-left:20px;
-padding:10px 18px;
-border:none;
-border-radius:12px;
-background:#7c5cff;
-color:white;
-font-weight:bold;
-cursor:pointer;
-z-index:1000;
-}
-
-.changelog-panel{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.85);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:999;
-}
-
-.changelog-box{
-background:#0f1430;
-padding:40px;
+display:block;
 border-radius:20px;
-max-width:500px;
 }
 
-.changelog-box ul{
-margin-top:20px;
-line-height:1.8;
+@media(max-width:768px){
+.hero h1{font-size:50px}
+.card{width:90%;height:220px}
 }
-
 </style>
 </head>
-
 <body>
-
-<button class="changelog-btn" onclick="openChangelog()">Changelog</button>
 
 <canvas id="particles"></canvas>
 
-<!-- HERO -->
+<div id="home">
+
+<header>
+<div class="logo">
+<img src="LKXstudio.PNG" alt="LKX Logo">
+</div>
+<div> 
+<h2>LKX Studio</h2>
+<small>Creating Roblox Experiences</small>
+</div>
+</header>
+
+<section class="hero">
+<h1>LKX Studio</h1>
+<p>Horror • Simulator • More</p>
+
+<div class="games">
+
+<div class="card" id="openTLK">
+<!-- TU DODAJ ZDJĘCIE THE LAST KID -->
+<img src="The last kid.PNG">
+<div class="overlay">The Last Kid</div>
+</div>
+
+<div class="card">
+<div class="placeholder">COMING SOON</div>
+<div class="overlay">Coming Soon</div>
+</div>
+
+</div>
+<section style="padding-top:150px;padding-bottom:150px;text-align:center;">
+
+<h2 style="font-size:45px;">
+Interested?
+</h2>
+
+<p style="
+margin-top:15px;
+font-size:18px;
+opacity:.8;
+">
+Join our Roblox group to stay updated on future games, updates and announcements.
+</p>
+
+<button onclick="joinGroup()" style="
+margin-top:30px;
+padding:15px 40px;
+border:none;
+border-radius:15px;
+cursor:pointer;
+font-size:18px;
+font-weight:bold;
+background:linear-gradient(90deg,#8b5cf6,#ec4899);
+color:white;
+box-shadow:0 0 25px rgba(236,72,153,.4);
+transition:.2s;
+">
+JOIN
+</button>
+
+</section>
+</div>
+
+<div id="thelastkid" class="hidden gamePage">
+
+<button class="back" onclick="goHome()">← Back</button>
+
+<!-- TU WKLEJ SWOJĄ STARĄ STRONĘ THE LAST KID -->
+
 <div class="hero">
 
 <h1>The Last Kid</h1>
@@ -222,180 +283,149 @@ line-height:1.8;
 <img src="Icon.png" class="game-icon">
 
 <p>
-<p>
-After a sudden abduction, you wake up inside a mysterious house.  
+After a sudden abduction, you wake up inside a mysterious house.
 Every door is locked. Every room hides a clue.
 
 Explore the house, search for keys, and slowly uncover the truth behind the person who brought you here.
 </p>
-</p>
 
 <div class="buttons">
 
-<button class="btn play" onclick="playGame()">Play on Roblox</button>
+<button class="btn play" onclick="playGame()">
+Play on Roblox
+</button>
 
-<button class="btn trailer" onclick="scrollTrailer()">Watch Trailer</button>
+<button class="btn trailer" onclick="scrollTrailer()">
+Watch Trailer
+</button>
 
 </div>
 
 </div>
 
-<!-- ABOUT -->
-<section>
+<section style="text-align:center;">
 
 <h2>About The Game</h2>
 
 <p>
 The Last Kid is a story-driven Roblox horror experience focused on mystery, exploration, and atmosphere.
-
-You play as a teenager who wakes up inside a strange house after being taken. Each room hides clues, puzzles, and fragments of a story that slowly reveal why you were brought here.
-
-As you explore deeper, the house begins to tell its story.
 </p>
 
 </section>
 
-<!-- FEATURES -->
-<section>
+<section style="text-align:center;">
 
-<h2>Game Features</h2>
+<h2 style="margin-top:80px;">Game Features</h2>
 
 <div class="features">
 
 <div class="card">
 <h3>Exploration</h3>
-<p>Search rooms, hidden spaces, and locked areas while slowly uncovering the truth.</p>
+<p>Search rooms and uncover the truth.</p>
 </div>
 
 <div class="card">
 <h3>Puzzles</h3>
-<p>Find keys, unlock doors, and solve environmental puzzles to progress.</p>
+<p>Find keys and solve mysteries.</p>
 </div>
 
 <div class="card">
 <h3>Story</h3>
-<p>Piece together the mystery through notes, clues, and discoveries hidden throughout the house.</p>
+<p>Discover what happened.</p>
 </div>
 
 <div class="card">
 <h3>Atmosphere</h3>
-<p>Dark rooms, quiet halls, and an unsettling feeling that you're not alone.</p>
+<p>You are not alone.</p>
 </div>
 
 </div>
 
 </section>
 
-<!-- TRAILER -->
 <section id="trailer">
 
-<h2>Trailer</h2>
+<h2 style="text-align:center;margin-top:80px;">
+Trailer
+</h2>
 
 <div class="video">
-
 <video controls>
 <source src="trailer.mp4" type="video/mp4">
 </video>
-
 </div>
 
 </section>
 
-<div id="changelog" class="changelog-panel">
-
-<div class="changelog-box">
-
-<h2>Changelog</h2>
-
-<ul>
-<li><b>v0.1</b> – Fixed excessive blurring when running through a hallway</li>
-<li><b>v0.2</b> – Fixed disappearing text in the cage</li>
-<li><b>v0.3</b> – beautifying the map</li>
-<li><b>v0.4</b> – adding Polish language</li>
-<li><b>v0.5</b> – various languages ​​added</li>
-<li><b>v0.6</b> – repaired the bottle that was in the store</li>
-</ul>
-
-<br>
-
-<button class="btn play" onclick="closeChangelog()">Close</button>
-
 </div>
-
-</div>
-
-<footer>
-The Last Kid • Roblox Horror Experience
-</footer>
 
 <script>
+function goHome(){
+document.getElementById("thelastkid").classList.add("hidden");
+document.getElementById("home").classList.remove("hidden");
+window.scrollTo(0,0);
+}
+
+document.getElementById("openTLK").onclick=function(){
+document.getElementById("home").classList.add("hidden");
+document.getElementById("thelastkid").classList.remove("hidden");
+window.scrollTo(0,0);
+};
+
+document.querySelectorAll('.card').forEach(card=>{
+card.addEventListener('mousemove',e=>{
+const rect=card.getBoundingClientRect();
+const x=e.clientX-rect.left;
+const y=e.clientY-rect.top;
+const rx=-(y-rect.height/2)/12;
+const ry=(x-rect.width/2)/12;
+card.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg) scale(1.05)`;
+});
+card.addEventListener('mouseleave',()=>{
+card.style.transform='rotateX(0) rotateY(0) scale(1)';
+});
+});
+
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
+resize(); addEventListener("resize",resize);
+const p=[...Array(80)].map(()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*2+1,vx:(Math.random()-.5)*0.4,vy:(Math.random()-.5)*0.4}));
+function a(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+p.forEach(o=>{
+o.x+=o.vx;o.y+=o.vy;
+if(o.x<0)o.x=innerWidth;if(o.x>innerWidth)o.x=0;
+if(o.y<0)o.y=innerHeight;if(o.y>innerHeight)o.y=0;
+ctx.beginPath();
+ctx.arc(o.x,o.y,o.r,0,Math.PI*2);
+ctx.fillStyle="#ec4899";
+ctx.fill();
+});
+requestAnimationFrame(a);
+}
+a();
 
 function playGame(){
-window.open("https://www.roblox.com/games/100805072034778/The-Last-Kid","_blank")
+window.open(
+"https://www.roblox.com/games/100805072034778/The-Last-Kid",
+"_blank"
+);
 }
 
 function scrollTrailer(){
-document.getElementById("trailer").scrollIntoView({behavior:"smooth"})
+document.getElementById("trailer")
+.scrollIntoView({behavior:"smooth"});
 }
 
-/* CHANGELOG */
-
-function openChangelog(){
-document.getElementById("changelog").style.display="flex"
+function joinGroup(){
+window.open(
+"https://www.roblox.com/communities/687798446/LKXstudio#!/about",
+"_blank"
+);
 }
-
-function closeChangelog(){
-document.getElementById("changelog").style.display="none"
-}
-
-/* PARTICLES BACKGROUND */
-
-const canvas=document.getElementById("particles")
-const ctx=canvas.getContext("2d")
-
-let w=canvas.width=window.innerWidth
-let h=canvas.height=window.innerHeight
-
-let particles=[]
-
-for(let i=0;i<100;i++){
-particles.push({
-x:Math.random()*w,
-y:Math.random()*h,
-r:Math.random()*2+1,
-vx:(Math.random()-.5)*0.5,
-vy:(Math.random()-.5)*0.5
-})
-}
-
-function animate(){
-ctx.clearRect(0,0,w,h)
-
-particles.forEach(p=>{
-
-p.x+=p.vx
-p.y+=p.vy
-
-if(p.x<0)p.x=w
-if(p.x>w)p.x=0
-if(p.y<0)p.y=h
-if(p.y>h)p.y=0
-
-ctx.beginPath()
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
-ctx.fillStyle="#7c5cff"
-ctx.fill()
-
-})
-
-requestAnimationFrame(animate)
-}
-
-animate()
-
 </script>
 
 </body>
-</html>
-
+</html>'''
 
